@@ -4,7 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
 import "@blocknote/core/fonts/inter.css";
-import { BlockNoteView, useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteViewRaw, useCreateBlockNote } from "@blocknote/react";
 import "@blocknote/react/style.css";
 
 import { useMutation } from "convex/react";
@@ -51,7 +51,7 @@ export const Description = ({
     };
 
     return (
-        <BlockNoteView
+        <BlockNoteViewRaw
             editor={editor}
             editable={editable}
             theme="light"
