@@ -26,7 +26,7 @@ import { Separator } from "@/components/ui/separator";
 // import { ListItem } from "./list-item";
 import { TooltipProvider } from "./tooltip-provider";
 import { ListItem } from "./list-item";
-// import ConnectStripe from "./connect-stripe";
+import ConnectStripe from "./connect-stripe";
 
 
 const Navbar = () => {
@@ -128,7 +128,7 @@ const Navbar = () => {
                             Switch To Selling
                         </Button>
                         {/* {!currentUser.stripeAccountSetupComplete &&
-                            <ConnectStripe />
+                        <ConnectStripe />
                         } */}
                         <UserButton />
                     </>

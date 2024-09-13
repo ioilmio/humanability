@@ -1,8 +1,7 @@
 import { v } from "convex/values";
-import { internalMutation, mutation, query, internalQuery } from "./_generated/server";
-// import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
-// import Stripe from "stripe";
-// import { api, internal } from "./_generated/api";
+import { internalMutation, mutation, query, internalQuery, action } from "./_generated/server";
+import Stripe from "stripe";
+import { api, internal } from "./_generated/api";
 
 export const store = mutation({
     args: {},
@@ -84,44 +83,44 @@ export const getStripeAccountId = internalQuery({
 });
 
 
-// export const createStripe = action({
-//     args: {},
-//     handler: async (ctx, args) => {
-//         const identity = await ctx.auth.getUserIdentity();
-//         if (!identity) {
-//             throw new Error("Called storeUser without authentication present");
-//         }
+export const createStripe = action({
+    args: {},
+    handler: async (ctx) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) {
+            throw new Error("Called storeUser without authentication present");
+        }
 
-//         const user = await ctx.runQuery(api.users.getCurrentUser);
-//         if (user === null) {
-//             return;
-//         }
-//         const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
-//             apiVersion: "2023-10-16",
-//         });
+        const user = await ctx.runQuery(api.users.getCurrentUser);
+        if (user === null) {
+            return;
+        }
+        const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY!, {
+            apiVersion: "2024-06-20",
+        });
 
-//         let accountId: string | null = await ctx.runQuery(internal.users.getStripeAccountId, { userId: user._id });
+        let accountId: string | null = await ctx.runQuery(internal.users.getStripeAccountId, { userId: user._id });
 
-//         if (!accountId) {
-//             const account = await stripe.accounts.create({
-//                 type: 'standard',
-//             });
-//             accountId = account.id;
+        if (!accountId) {
+            const account = await stripe.accounts.create({
+                type: 'standard',
+            });
+            accountId = account.id;
 
-//             await ctx.runMutation(internal.users.setStripeAccountId, { userId: user._id, stripeAccountId: accountId });
-//         }
+            await ctx.runMutation(internal.users.setStripeAccountId, { userId: user._id, stripeAccountId: accountId });
+        }
 
 
-//         const accountLink = await stripe.accountLinks.create({
-//             account: accountId,
-//             refresh_url: process.env.NEXT_PUBLIC_HOSTING_URL,
-//             return_url: `${process.env.NEXT_PUBLIC_HOSTING_URL}/stripe-account-setup-complete/${user._id}`,
-//             type: 'account_onboarding',
-//         });
+        const accountLink = await stripe.accountLinks.create({
+            account: accountId,
+            refresh_url: process.env.NEXT_PUBLIC_HOSTING_URL,
+            return_url: `${process.env.NEXT_PUBLIC_HOSTING_URL}/stripe-account-setup-complete/${user._id}`,
+            type: 'account_onboarding',
+        });
 
-//         return accountLink.url;
-//     },
-// });
+        return accountLink.url;
+    },
+});
 
 
 export const setStripeAccountId = internalMutation({
