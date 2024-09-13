@@ -37,13 +37,18 @@ export const getFullByGig = query({
                 .first();
 
             if (!image) {
-                throw new Error("Image not found");
+                console.log('no image');
+                // throw new Error("Image not found");
+            }
+            let imageUrl
+            if(image) {
+                imageUrl = await ctx.storage.getUrl(image.storageId);
             }
 
-            const imageUrl = await ctx.storage.getUrl(image.storageId);
-
             if (!imageUrl) {
-                throw new Error("Image not found");
+                console.log('no image');
+                
+                // throw new Error("Image not found");
             }
 
             const offers = await ctx.db.query("offers")
@@ -76,7 +81,7 @@ export const getFullByGig = query({
             return {
                 ...review,
                 gig,
-                image: imageWithUrl,
+                image: imageWithUrl || '',
                 offers,
                 author: {
                     ...author,

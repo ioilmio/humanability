@@ -127,9 +127,9 @@ const Navbar = () => {
                         <Button onClick={() => router.push(`/seller/${currentUser.username}/manage-gigs`)}>
                             Switch To Selling
                         </Button>
-                        {/* {!currentUser.stripeAccountSetupComplete &&
+                        {!currentUser.stripeAccountSetupComplete &&
                         <ConnectStripe />
-                        } */}
+                        }
                         <UserButton />
                     </>
                 )}

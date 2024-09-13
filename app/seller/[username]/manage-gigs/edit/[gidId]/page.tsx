@@ -14,7 +14,6 @@ import { Description } from "@/components/description";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Images } from "@/components/images";
-// import { TitleEditor } from "@/components/title-editor";
 import { TitleEditor } from "@/components/title-editor";
 
 import { Label } from "@/components/ui/label";
