@@ -2,7 +2,7 @@
 
 // import { useConvexAuth, useMutation } from "convex/react";
 import { useMutation } from "convex/react";
-// import { GigList } from "./_components/gig-list";
+import { GigList } from "./_components/gig-list";
 // import { useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 // import { useEffect, useState } from "react";
@@ -10,16 +10,16 @@ import { useEffect } from "react";
 import { api } from "@/convex/_generated/api";
 // import { useRouter } from "next/navigation";
 
-// interface DashboardProps {
-//   searchParams: {
-//     search?: string;
-//     favorites?: string;
-//     filter?: string;
-//   };
-// }
+interface DashboardProps {
+  searchParams: {
+    search?: string;
+    favorites?: string;
+    filter?: string;
+  };
+}
 
-const Dashboard = () => {
-// const Dashboard = ({ searchParams }: DashboardProps) => {
+// const Dashboard = () => {
+const Dashboard = ({ searchParams }: DashboardProps) => {
   const store = useMutation(api.users.store);
   useEffect(() => {
     const storeUser = async () => {
@@ -28,10 +28,11 @@ const Dashboard = () => {
     storeUser();
   }, [store]);
   return (
-    // <GigList
-    //     query={searchParams}
-    // />
-    <div>Temp home</div>
+    <GigList
+        query={searchParams}
+    />
+    // <div>Temp home</div>
+    // <></>
   );
 };
 

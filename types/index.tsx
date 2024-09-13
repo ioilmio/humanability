@@ -32,6 +32,6 @@ export type ReviewFullType = Doc<"reviews"> & {
     gig: Doc<"gigs">
 };
 
-export type CategoriesFullType = Doc<"categories"> & {
+// export type CategoriesFullType = Doc<"categories"> & {
 
-};
+// };

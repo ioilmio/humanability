@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { internalMutation, mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query, internalQuery } from "./_generated/server";
 // import { action, internalMutation, internalQuery, mutation, query } from "./_generated/server";
 // import Stripe from "stripe";
 // import { api, internal } from "./_generated/api";
@@ -72,16 +72,16 @@ export const get = query({
 });
 
 
-// export const getStripeAccountId = internalQuery({
-//     args: { userId: v.id("users") },
-//     handler: async (ctx, args) => {
-//         const user = await ctx.db.get(args.userId);
-//         if (!user) {
-//             throw new Error("User not found");
-//         }
-//         return user.stripeAccountId;
-//     },
-// });
+export const getStripeAccountId = internalQuery({
+    args: { userId: v.id("users") },
+    handler: async (ctx, args) => {
+        const user = await ctx.db.get(args.userId);
+        if (!user) {
+            throw new Error("User not found");
+        }
+        return user.stripeAccountId;
+    },
+});
 
 
 // export const createStripe = action({
