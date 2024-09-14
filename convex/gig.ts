@@ -54,8 +54,15 @@ export const get = query({
     const images = await ctx.db.query("gigMedia")
     .withIndex("by_gigId", (q) => q.eq("gigId", gig._id))
     .collect();
+    const imagesWithUrls = await Promise.all(images.map(async (image) => {
+      const imageUrl = await ctx.storage.getUrl(image.storageId);
+      if (!imageUrl) {
+          throw new Error("Image not found");
+      }
+      return { ...image, url: imageUrl };
+    }));
 
-    return { gig, seller, images };
+    return { gig, seller, images: imagesWithUrls };
   },
 });
 // export const get = query({
@@ -144,25 +151,25 @@ export const publish = mutation({
       throw new Error("Gig not found");
     }
 
-    const media = await ctx.db
-      .query("gigMedia")
-      .withIndex("by_gigId", (q) => q.eq("gigId", gig._id))
-      .collect();
+    // const media = await ctx.db
+    //   .query("gigMedia")
+    //   .withIndex("by_gigId", (q) => q.eq("gigId", gig._id))
+    //   .collect();
 
-    const offers = await ctx.db
-      .query("offers")
-      .withIndex("by_gigId", (q) => q.eq("gigId", gig._id))
-      .collect();
+    // const offers = await ctx.db
+    //   .query("offers")
+    //   .withIndex("by_gigId", (q) => q.eq("gigId", gig._id))
+    //   .collect();
 
-    if (media.length === 0 || gig.description === "" || offers.length !== 3) {
-      throw new Error("Gig needs at least one image to be published");
-    }
+    // if (media.length === 0 || gig.description === "" || offers.length !== 3) {
+    //   throw new Error("Gig needs at least one image to be published");
+    // }
 
     await ctx.db.patch(args.id, {
       published: true,
     });
 
-    return gig;
+    // return gig;
   },
 });
 

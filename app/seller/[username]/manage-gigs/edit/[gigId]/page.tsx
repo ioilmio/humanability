@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { api } from "@/convex/_generated/api";
-import { Doc, Id } from "@/convex/_generated/dataModel";
+import { Id } from "@/convex/_generated/dataModel";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
@@ -30,7 +30,6 @@ interface EditdPageProps {
 const Edit = ({ params }: EditdPageProps) => {
     
     const gig = useQuery(api.gig.get, { id: params.gigId as Id<"gigs"> })
-    console.log(gig);
     
     const published = useQuery(api.gig.isPublished, { id: params.gigId as Id<"gigs"> });
     const {
@@ -73,8 +72,6 @@ const Edit = ({ params }: EditdPageProps) => {
         event.preventDefault();
         if (gig === undefined) return;
 
-        const nonNullableGig = gig as unknown as Doc<"gigs">;
-
         // Step 1: Get a short-lived upload URL
         const postUrl = await generateUploadUrl();
 
@@ -92,7 +89,7 @@ const Edit = ({ params }: EditdPageProps) => {
             }
             const { storageId } = json;
             // Step 3: Save the newly allocated storage id to the database
-            await sendImage({ storageId, format: "image", gigId: nonNullableGig._id })
+            await sendImage({ storageId, format: "image", gigId: gig?.gig._id })
                 .catch((error) => {
                     console.log(error);
                     toast.error("Maximum 5 files reached.");
@@ -148,12 +145,12 @@ const Edit = ({ params }: EditdPageProps) => {
                     <div className="w-[800px]">
                     <Images
                         images={gig?.images}
-                        title={gig?.gig.title}
+                        title={gig?.gig?.title}
                         allowDelete={true}
                         
                         />
                 </div>}
-                <form onSubmit={handleSendImage} className="space-y-2">
+                <form onSubmit={handleSendImage} className="space-y-0">
                     <Label className="font-normal">Add up to 5 images:</Label>
                     <div className="flex space-x-2">
                         <Input
