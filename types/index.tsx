@@ -1,7 +1,7 @@
 import { Doc, Id } from "@/convex/_generated/dataModel";
 
 export type ImageWithUrlType = Doc<"gigMedia"> & {
-    url: string
+    url?: string
 };
 
 export type FullGigType = Doc<"gigs"> & {

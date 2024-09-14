@@ -2,13 +2,17 @@ import { v } from "convex/values";
 import { internalMutation, mutation, query, internalQuery, action } from "./_generated/server";
 import Stripe from "stripe";
 import { api, internal } from "./_generated/api";
+import { toast } from "sonner"
+
 
 export const store = mutation({
     args: {},
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
-            throw new Error("Called storeUser without authentication present");
+            toast.info("Signup or login first");
+            return
+            // throw new Error("Called storeUser without authentication present");
         }
 
         // Check if we've already stored this identity before.

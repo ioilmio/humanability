@@ -81,7 +81,6 @@ export const CreateForm = ({
             subcategoryId: data.subcategoryId,
         })
             .then((gigId: Id<"gigs">) => {
-                debugger
                 toast.info("Gig created successfully");
                 //form.setValue("title", "");
                 router.push(`/seller/${username}/manage-gigs/edit/${gigId}`)

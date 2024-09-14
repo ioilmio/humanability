@@ -33,7 +33,7 @@ const ConversationPage = ({
         callMutation();
     }, [get, params.otherUserName]);
 
-    if (conversation === null || conv === undefined || conv === undefined) {
+    if (conversation === null || conv === undefined) {
         return <div className="text-center text-muted-foreground text-3xl font-semibold p-4 animation-pulse">Loading...</div>
     }
     console.log(conversation);

@@ -29,14 +29,14 @@ export const ConvexClientProvider: React.FC<ConvexClientProviderProps> = ({
         <AuthLoading>
           <Loading />
         </AuthLoading>
-        <header>
+        {/* <header>
             <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton />
             </SignedIn>
-          </header>
+          </header> */}
       </ConvexProviderWithClerk>
     </ClerkProvider>
   );

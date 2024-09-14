@@ -17,6 +17,7 @@ export default defineSchema({
   })
     .index("by_token", ["tokenIdentifier"])
     .index("by_username", ["username"]),
+
   reviews: defineTable({
     authorId: v.id("users"),
     sellerId: v.id("users"),
@@ -28,23 +29,28 @@ export default defineSchema({
   })
     .index("by_sellerId", ["sellerId"])
     .index("by_gigId", ["gigId"]),
+
   skills: defineTable({
     skill: v.string(),
     userId: v.id("users"),
   }).index("by_userId", ["userId"]),
+
   languages: defineTable({
     language: v.string(),
     userId: v.id("users"),
   }).index("by_userId", ["userId"]),
+
   userFlags: defineTable({
     userId: v.id("users"),
     markingType: v.string(),
     description: v.string(),
   }),
+
   countries: defineTable({
     countryName: v.string(),
     userId: v.id("users"),
   }).index("by_userId", ["userId"]),
+
   gigs: defineTable({
     title: v.string(),
     description: v.string(),
@@ -59,6 +65,7 @@ export default defineSchema({
     .searchIndex("search_title", {
       searchField: "title",
     }),
+
   offers: defineTable({
     gigId: v.id("gigs"),
     title: v.string(),
@@ -76,6 +83,7 @@ export default defineSchema({
     .index("by_gigId", ["gigId"])
     .index("by_tier", ["tier"])
     .index("by_gigId_tier", ["gigId", "tier"]),
+
   orders: defineTable({
     offerId: v.id("offers"),
     gigId: v.id("gigs"),
@@ -85,6 +93,7 @@ export default defineSchema({
   })
     .index("by_buyerId", ["buyerId"])
     .index("by_gigId", ["gigId"]),
+
   gigMedia: defineTable({
     storageId: v.id("_storage"),
     format: v.string(),
@@ -92,20 +101,24 @@ export default defineSchema({
   })
     .index("by_gigId", ["gigId"])
     .index("by_storageId", ["storageId"]),
+
   categories: defineTable({
     name: v.string(),
   }),
+
   subcategories: defineTable({
     categoryId: v.id("categories"),
     name: v.string(),
   })
     .index("by_category", ["categoryId"])
     .index("by_name", ["name"]),
+
   faq: defineTable({
     question: v.string(),
     answer: v.string(),
     gigId: v.id("gigs"),
   }),
+
   messages: defineTable({
     userId: v.id("users"),
     text: v.optional(v.string()),
@@ -113,12 +126,14 @@ export default defineSchema({
     seen: v.boolean(),
     conversationId: v.id("conversations"),
   }).index("by_conversationId", ["conversationId"]),
+
   conversations: defineTable({
     participantOneId: v.id("users"),
     participantTwoId: v.id("users"),
   })
     .index("by_participantOneId", ["participantOneId", "participantTwoId"])
     .index("by_participantTwoId", ["participantTwoId", "participantOneId"]),
+
   userFavorites: defineTable({
     userId: v.id("users"),
     gigId: v.id("gigs"),

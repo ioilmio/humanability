@@ -28,7 +28,10 @@ interface EditdPageProps {
 };
 
 const Edit = ({ params }: EditdPageProps) => {
+    
     const gig = useQuery(api.gig.get, { id: params.gigId as Id<"gigs"> })
+    console.log(gig);
+    
     const published = useQuery(api.gig.isPublished, { id: params.gigId as Id<"gigs"> });
     const {
         mutate: remove,
@@ -70,7 +73,7 @@ const Edit = ({ params }: EditdPageProps) => {
         event.preventDefault();
         if (gig === undefined) return;
 
-        const nonNullableGig = gig as Doc<"gigs">;
+        const nonNullableGig = gig as unknown as Doc<"gigs">;
 
         // Step 1: Get a short-lived upload URL
         const postUrl = await generateUploadUrl();
@@ -127,7 +130,7 @@ const Edit = ({ params }: EditdPageProps) => {
                     <Button disabled={publishPending || unpublishPending} variant={"default"} onClick={onPublish}>
                         {published ? "Unpublish" : "Publish"}
                     </Button>
-                    <Link href={`/${gig.seller.username}/${gig._id}`}>
+                    <Link href={`/${gig?.seller?.username}/${gig?.gig._id}`}>
                         <Button disabled={removePending} variant={"secondary"}>
                             Preview
                         </Button>
@@ -138,17 +141,18 @@ const Edit = ({ params }: EditdPageProps) => {
                 </div>
 
                 <TitleEditor
-                    id={gig._id}
-                    title={gig.title}
+                    id={gig?.gig._id}
+                    title={gig?.gig.title}
                 />
-                <div className="w-[800px]">
+                {gig?.images.length > 0 &&
+                    <div className="w-[800px]">
                     <Images
-                        images={gig.images}
-                        title={gig.title}
+                        images={gig?.images}
+                        title={gig?.gig.title}
                         allowDelete={true}
-
-                    />
-                </div>
+                        
+                        />
+                </div>}
                 <form onSubmit={handleSendImage} className="space-y-2">
                     <Label className="font-normal">Add up to 5 images:</Label>
                     <div className="flex space-x-2">
@@ -170,11 +174,11 @@ const Edit = ({ params }: EditdPageProps) => {
                     </div>
                 </form>
                 <div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
-                    <p className="text-muted-foreground">👨‍🎨 Creator: {"Vuk Rosic"}</p>
+                    <p className="text-muted-foreground">👨‍🎨 Creator: {gig?.seller?.fullName || gig?.seller?.username}</p>
                 </div>
 
                 <OffersEditor
-                    gigId={gig._id}
+                    gigId={gig?.gig._id as Id<"gigs">}
                 />
 
                 <h2 className="font-semibold">About this gig</h2>
@@ -182,10 +186,10 @@ const Edit = ({ params }: EditdPageProps) => {
 
 
             <Description
-                initialContent={gig.description}
+                initialContent={gig?.gig?.description}
                 editable={true}
                 className="pb-40 mt-12 2xl:px-[200px] xl:px-[90px] xs:px-[17px]"
-                gigId={gig._id}
+                gigId={gig?.gig._id}
             />
 
         </>
