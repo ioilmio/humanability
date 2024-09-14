@@ -176,11 +176,7 @@ const Edit = ({ params }: EditdPageProps) => {
                 <div className="flex rounded-md border border-zinc-300 items-center space-x-4 w-fit p-2 cursor-default">
                     <p className="text-muted-foreground">👨‍🎨 Creator: {gig?.seller?.fullName || gig?.seller?.username}</p>
                 </div>
-
-                <OffersEditor
-                    gigId={gig?.gig._id as Id<"gigs">}
-                />
-
+                <OffersEditor gigId={gig?.gig._id as Id<"gigs">}/>
                 <h2 className="font-semibold">About this gig</h2>
             </div>
 
