@@ -50,11 +50,11 @@ const GigPage = ({ params }: PageProps) => {
     return <div>Not found</div>;
   }
 
-  if (gig.published === false) {
+  if (gig?.gig?.published === false) {
     return <div>This gig is not published</div>;
   }
 
-  const editUrl = `/seller/${gig.seller.username}/manage-gigs/edit/${gig._id}`;
+  const editUrl = `/seller/${gig?.seller?.username}/manage-gigs/edit/${gig?.gig._id}`;
 
   return (
     <div>
@@ -63,18 +63,18 @@ const GigPage = ({ params }: PageProps) => {
           <Header
             {...categoryAndSubcategory}
             editUrl={editUrl}
-            ownerId={gig.seller._id}
+            ownerId={gig?.seller?._id}
           />
           <h1 className="text-3xl font-bold break-words text-[#3F3F3F]">
-            {gig.title}
+            {gig?.gig?.title}
           </h1>
-          <Seller seller={gig.seller} reviews={reviews} />
-          <Images images={gig.images} title={gig.title} allowDelete={false} />
+          <Seller seller={gig?.seller} reviews={reviews} />
+          <Images images={gig?.images} title={gig?.gig?.title} allowDelete={false} />
           {/* <h2 className="font-semibold">About this gig</h2> */}
           <Description
             editable={false}
-            initialContent={gig.description}
-            gigId={gig._id}
+            initialContent={gig?.gig?.description}
+            gigId={gig?.gig?._id}
             //className="pb-40 2xl:px-[200px] xl:px-[90px] xs:px-[17px]"
           />
           <div className="border border-zinc-400 p-4 space-y-2 rounded-2xl">
@@ -89,17 +89,17 @@ const GigPage = ({ params }: PageProps) => {
             </p>
           </div>
           <SellerDetails
-            seller={gig.seller}
+            seller={gig?.seller}
             reviews={reviews}
-            lastFulFilmentTime={gig.lastFulfilment?.fulfilmentTime}
-            languages={gig.seller.languages}
+            // lastFulFilmentTime={gig?.gig?.lastFulfilment?.fulfilmentTime}
+            // languages={gig?.gig?.seller.languages}
           />
 
           <Reviews reviews={reviewsFull} />
 
-          <AddReview gigId={gig._id} sellerId={gig.seller._id} />
+          <AddReview gigId={gig?.gig?._id} sellerId={gig?.seller?._id} />
         </div>
-        <Offers offers={offers} sellerId={gig.seller._id} editUrl={editUrl} />
+        <Offers offers={offers} sellerId={gig?.seller?._id} editUrl={editUrl} />
       </div>
     </div>
   );

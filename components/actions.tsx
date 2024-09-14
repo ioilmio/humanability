@@ -45,8 +45,8 @@ export const Actions = ({
 
     const onDelete = () => {
         mutate({ id })
-            .then(() => toast.success("Board deleted"))
-            .catch(() => toast.error("Failed to delete board"));
+            .then(() => toast.success("Gig deleted"))
+            .catch(() => toast.error("Failed to delete gig"));
     };
 
     return (
@@ -66,7 +66,7 @@ export const Actions = ({
                     className="p-3 cursor-pointer"
                 >
                     <Link2 className="h-4 w-4 mr-2" />
-                    Copy board link
+                    Copy gig link
                 </DropdownMenuItem>
                 <DropdownMenuItem
                     onClick={() => onOpen(id, title)}
@@ -76,8 +76,8 @@ export const Actions = ({
                     Rename
                 </DropdownMenuItem>
                 <ConfirmModal
-                    header="Delete board?"
-                    description="This will delete the board and all of its contents."
+                    header="Delete gig?"
+                    description="This will delete the gig and all of its contents."
                     disabled={pending}
                     onConfirm={onDelete}
                 >

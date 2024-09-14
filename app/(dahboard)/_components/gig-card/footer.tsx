@@ -39,7 +39,7 @@ export const Footer = ({
     };
 
     return (
-        <div className="relative bg-white p-3 space-y-2">
+        <div className="relative bg-white text-black p-3 space-y-2">
             <h3 className="font-bold">{seller.fullName}</h3>
             <p className="text-[14px] font-medium max-w-[calc(100%-20px)]">
                 {title}
@@ -54,14 +54,14 @@ export const Footer = ({
         {reviews.length === 0 && (<p className="font-normal">0</p>)} */}
             </div>
             {/* <p className="font-semibold">From ${offer.price}</p> */}
-            <p className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] text-muted-foreground truncate">
+            <p className="text-[11px] truncate">
                 {ownerLabel}, {createdAtLabel}
             </p>
             <button
                 disabled={disabled}
                 onClick={handleClick}
                 className={cn(
-                    "opacity-0 group-hover:opacity-100 transition absolute top-3 right-3 text-muted-foreground hover:text-blue-600",
+                    "absolute top-3 right-3 text-muted-foreground hover:text-blue-600",
                     disabled && "cursor-not-allowed opacity-75"
                 )}
             >

@@ -5,8 +5,6 @@ import { useQuery } from "convex/react";
 import { EmptySearch } from "./empty-search";
 import { EmptyFavorites } from "./empty-favorites";
 import { GigCard } from "./gig-card";
-// import { Loading } from "@/components/auth/loading";
-// import { Doc, Id } from "@/convex/_generated/dataModel";
 import { FullGigType } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -56,8 +54,8 @@ export const GigList = ({
 
 
     return (
-        <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 pb-10 mx-10">
+        <>
+            <div className="grid grid-cols-1 bg-foreground sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-8 pb-10 mx-10">
                 {gigsWithFavorite?.map((gig) => (
                     <GigCard
                         key={gig._id}
@@ -74,6 +72,6 @@ export const GigList = ({
                 ))
                 }
             </div>
-        </div>
+        </>
     )
 }

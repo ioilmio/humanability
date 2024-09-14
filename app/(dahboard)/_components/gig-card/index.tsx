@@ -103,7 +103,7 @@ export const GigCard = ({
                 <Footer
                     isFavorite={isFavorite}
                     title={title}
-                    ownerLabel={"Vuk"}
+                    ownerLabel={seller.username}
                     createdAtLabel={createdAtLabel}
                     onClick={toggleFavorite}
                     disabled={favoritePending || unfavoritePending}

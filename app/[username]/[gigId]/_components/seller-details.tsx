@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Doc } from "@/convex/_generated/dataModel";
 import { UserWithCountryType } from "@/types";
-import { formatDistanceToNow } from "date-fns";
+// import { formatDistanceToNow } from "date-fns";
 import { Star } from "lucide-react"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,8 +20,8 @@ interface SellerProps {
 export const SellerDetails = ({
     seller,
     reviews,
-    lastFulFilmentTime,
-    languages
+    // lastFulFilmentTime,
+    // languages
 }: SellerProps) => {
     const router = useRouter();
     const averageReview = reviews.reduce((acc, review) => {
@@ -30,12 +30,12 @@ export const SellerDetails = ({
 
     const joinedDate = format(new Date(seller._creationTime), 'MMM yy');
 
-    let timeAgo = undefined;
-    if (lastFulFilmentTime !== undefined) {
-        timeAgo = formatDistanceToNow(new Date(lastFulFilmentTime), { addSuffix: true });
-    }
+    // let timeAgo = undefined;
+    // if (lastFulFilmentTime !== undefined) {
+    //     timeAgo = formatDistanceToNow(new Date(lastFulFilmentTime), { addSuffix: true });
+    // }
 
-    const languagesString = languages.map((language) => language.language).join(", ");
+    // const languagesString = languages.map((language) => language.language).join(", ");
 
     const handleContactClick = () => {
         router.push(`/inbox/${seller.username}`);
@@ -61,33 +61,33 @@ export const SellerDetails = ({
                             <p className="font-semibold">{reviews.length}</p>
                             <div className="flex">(<p className="underline">{averageReview.toFixed(2) || 0}</p>)</div>
                         </div>
-                        <div className="bg-yellow-100 text-red-900 font-semibold p-1">{seller.customTag}</div>
+                        {/* <div className="bg-yellow-100 text-red-900 font-semibold p-1">{seller.customTag}</div> */}
                     </div>
                 </div>
             </div>
             <Button variant={"outline"} onClick={handleContactClick}>Contact me</Button>
             <div className="border border-black/20 p-4 space-y-3 rounded-2xl">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
-                    <div>
+                    {/* <div>
                         <p className="font-semibold">From</p>
                         <p>{seller.country.countryName}</p>
-                    </div>
+                    </div> */}
                     <div>
                         <p className="font-semibold">Joined</p>
                         <p>{joinedDate}</p>
                     </div>
-                    {(timeAgo !== undefined) && (
+                    {/* {(timeAgo !== undefined) && (
                         <div>
                             <p className="font-semibold">Last delivery</p>
                             <p>{timeAgo}</p>
                         </div>
-                    )}
-                    {(languages.length > 0) && (
+                    )} */}
+                    {/* {(languages.length > 0) && (
                         <div>
                             <p className="font-semibold">Languages</p>
                             <p>{languagesString}</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <Separator />
                 <p>{seller.about}</p>

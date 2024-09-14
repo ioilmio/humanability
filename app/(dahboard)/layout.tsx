@@ -6,7 +6,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     return (
-        <main className="h-full  px-0 2xl:px-56">
+        <main className="h-full px-0 ">
             <Navbar />
             {children}
         </main>
