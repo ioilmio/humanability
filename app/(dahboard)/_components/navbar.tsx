@@ -1,32 +1,20 @@
 "use client";
 
-// import { SignInButton, SignUpButton, UserButton, useClerk } from "@clerk/nextjs";
 import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { SearchInput } from "./search-input";
 import { Button } from "@/components/ui/button";
-// import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 import { Darkmode } from "@/components/darkmode";
-// import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
-// import { useEffect, useState } from "react";
-
+import { FilterGig } from "./filter-gigs"
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Loading } from "@/components/auth/loading";
 import { useQuery } from "convex/react";
-import { Filter, Heart, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-// import { ListItem } from "./list-item";
 import { TooltipProvider } from "./tooltip-provider";
-import { ListItem } from "./list-item";
 import ConnectStripe from "./connect-stripe";
 
 const Navbar = () => {
@@ -34,7 +22,6 @@ const Navbar = () => {
   const currentUser = useQuery(api.users.getCurrentUser);
   const searchParams = useSearchParams();
   const favorites = searchParams.get("favorites");
-  const filter = searchParams.get("filter");
 
   const router = useRouter();
 
@@ -44,10 +31,6 @@ const Navbar = () => {
 
   const onClickInbox = () => {
     router.push("/inbox");
-  };
-
-  const clearFilters = () => {
-    router.push("/");
   };
 
   return (
@@ -68,48 +51,7 @@ const Navbar = () => {
         <div className="hidden lg:flex lg:flex-1">
           <SearchInput />
         </div>
-        <Dialog>
-          <DialogTrigger>
-            <TooltipProvider text="Filter">
-              <Filter className="mx-4 my-3" />
-            </TooltipProvider>
-          </DialogTrigger>
-          <DialogContent className="overflow-y-auto max-h-[calc(100vh-200px)]">
-            {/* <ScrollArea className="rounded-md border"> */}
-            <DialogClose>
-              <>
-                <Button
-                  onClick={clearFilters}
-                  variant="ghost"
-                  className="text-red-500"
-                  disabled={!filter}
-                >
-                  Clear filters
-                </Button>
-                {categories.map((category, index) => (
-                  <div
-                    key={index}
-                    className="p-4 bg-white rounded-lg shadow-md"
-                  >
-                    <h3 className="text-lg font-semibold mb-4">
-                      {category.name}
-                    </h3>
-                    <div className="space-y-2">
-                      {category.subcategories.map((subcategory, subIndex) => (
-                        <ListItem
-                          key={subIndex}
-                          title={subcategory.name}
-                          subcategory={subcategory}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </>
-            </DialogClose>
-          </DialogContent>
-          {/* </ScrollArea> */}
-        </Dialog>
+        <FilterGig categories={categories}/>
 
         {currentUser && (
           <>

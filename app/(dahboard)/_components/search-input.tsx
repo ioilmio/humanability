@@ -10,13 +10,13 @@ import { useState } from "react";
 export const SearchInput = () => {
     const router = useRouter();
     const [value, setValue] = useState("");
-    // const debouncedValue = useDebounceValue(value, 500);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
     };
 
     const handleSubmit = () => {
+        if(!value) return
         const url = qs.stringifyUrl({
             url: "/",
             query: {
@@ -27,16 +27,6 @@ export const SearchInput = () => {
         router.push(url);
     };
 
-    // useEffect(() => {
-    //     const url = qs.stringifyUrl({
-    //         url: "/",
-    //         query: { 
-    //         search: debouncedValue[0],
-    //         },
-    //     }, {skipEmptyString: true, skipNull: true});
-
-    //     router.push(url);
-    // }, [debouncedValue, router]);
 
     return (
         <div className="w-full relative flex">
